@@ -420,7 +420,12 @@ namespace DotNetDoctor.csmatio.io
 			// Write matrix
 			output.Write(MatDataTypes.miMATRIX);  //matrix tag
 			output.Write((int)ms.Length);  // size of the matrix
-			output.Write(ms.ToArray());  // matrix data
+
+            // reset the memory stream position so we can copy it to the output stream.
+		    ms.Position = 0;
+
+            // copy the temp memory stream to the output stream.
+			ms.CopyTo(output.BaseStream);
 		}
 
 		/// <summary>
