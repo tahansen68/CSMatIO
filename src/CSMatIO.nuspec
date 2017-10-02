@@ -19,14 +19,14 @@
     <!-- Binaries -->
     
     <!-- .Net 4.0 -->    
-    <file src="bin\Release\net40\CSMatIO.dll" target="lib\net40\CSMatIO.dll" />
-    <file src="bin\Release\net40\CSMatIO.pdb" target="lib\net40\CSMatIO.pdb" />
-    <file src="bin\Release\net40\CSMatIO.xml" target="lib\net40\CSMatIO.xml" />
+    <file src="bin\Release\net40\DotNetDoctor.CSMatIO.dll" target="lib\net40\DotNetDoctor.CSMatIO.dll" />
+    <file src="bin\Release\net40\DotNetDoctor.CSMatIO.pdb" target="lib\net40\DotNetDoctor.CSMatIO.pdb" />
+    <file src="bin\Release\net40\DotNetDoctor.CSMatIO.xml" target="lib\net40\DotNetDoctor.CSMatIO.xml" />
 
     <!-- .Net 4.5 -->    
-    <file src="bin\Release\net45\CSMatIO.dll" target="lib\net45\CSMatIO.dll" />
-    <file src="bin\Release\net45\CSMatIO.pdb" target="lib\net45\CSMatIO.pdb" />
-    <file src="bin\Release\net45\CSMatIO.xml" target="lib\net45\CSMatIO.xml" />
+    <file src="bin\Release\net45\DotNetDoctor.CSMatIO.dll" target="lib\net45\DotNetDoctor.CSMatIO.dll" />
+    <file src="bin\Release\net45\DotNetDoctor.CSMatIO.pdb" target="lib\net45\DotNetDoctor.CSMatIO.pdb" />
+    <file src="bin\Release\net45\DotNetDoctor.CSMatIO.xml" target="lib\net45\DotNetDoctor.CSMatIO.xml" />
     
   </files>
 </package>
