@@ -50,6 +50,9 @@ namespace DotNetDoctor.csmatio.types
 		public MLDouble(string Name, double[][] vals)
 			: this(Name, Helpers.Array2DTo1D<double>(vals), vals.Length) { }
 
+        public MLDouble(string name, double[,] values) : this(name, Helpers.Array2DTo1D<double>(values), values.GetLength(0)) { }
+
+
 		/// <summary>
 		/// <a href="http://math.nist.gov/javanumerics/jama/">Jama</a> [math.nist.gov] style:
 		/// construct a 2D imaginary matrix from a one-dimensional packed array.

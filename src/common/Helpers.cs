@@ -35,13 +35,32 @@ namespace DotNetDoctor.csmatio.common
 			output.Flush();
 		}
 
-		/// <summary>
-		/// Converts T[][] to T[], assuming equal length of each subarray.
-		/// The T[] array consists of the concatenated columns(!) of the T[][] array.
-		/// </summary>
-		/// <param name="array2D">Array of type T[][]</param>
-		/// <returns>Array of Type T[]</returns>
-		public static T[] Array2DTo1D<T>(T[][] array2D)
+	    public static T[] Array2DTo1D<T>(T[,] array2D)
+	    {
+	        int numRows = array2D.GetLength(0);
+
+	        int numCols = array2D.GetLength(1);
+
+	        T[] array1D = new T[numRows * numCols];
+
+	        for (int i = 0; i < numCols; ++i)
+	        {
+	            for (int j = 0; j < numRows; ++j)
+	            {
+	                array1D[j + i * numRows] = array2D[j, i];
+	            }
+	        }
+
+	        return array1D;
+
+        }
+        /// <summary>
+        /// Converts T[][] to T[], assuming equal length of each subarray.
+        /// The T[] array consists of the concatenated columns(!) of the T[][] array.
+        /// </summary>
+        /// <param name="array2D">Array of type T[][]</param>
+        /// <returns>Array of Type T[]</returns>
+        public static T[] Array2DTo1D<T>(T[][] array2D)
 		{
 			int numRows = array2D.Length;
 			int numCols = array2D[0].Length;

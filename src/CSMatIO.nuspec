@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DotNetDoctor.CSMatIO</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>Sérgio aka AlienEnginner</authors>
     <owners />
     <licenseUrl>https://raw.githubusercontent.com/DotNetDoctor/CSMatIO/master/LICENSE</licenseUrl>
