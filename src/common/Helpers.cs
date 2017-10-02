@@ -75,5 +75,24 @@ namespace DotNetDoctor.csmatio.common
 
 			return array1D;
 		}
+
+	    public static float[] Convert(double[,] values)
+	    {
+	        int numRows = values.GetLength(0);
+
+	        int numCols = values.GetLength(1);
+
+	        float[] array1D = new float[numRows * numCols];
+
+	        for (int i = 0; i < numCols; ++i)
+	        {
+	            for (int j = 0; j < numRows; ++j)
+	            {
+	                array1D[j + i * numRows] = (float)values[j, i];
+	            }
+	        }
+
+	        return array1D;
+        }
 	}
 }

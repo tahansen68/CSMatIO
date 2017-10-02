@@ -50,26 +50,29 @@ namespace DotNetDoctor.csmatio.types
 		public MLSingle(string Name, float[][] vals)
 			: this(Name, Helpers.Array2DTo1D<float>(vals), vals.Length) { }
 
-		/// <summary>
-		/// <a href="http://math.nist.gov/javanumerics/jama/">Jama</a> [math.nist.gov] style:
-		/// construct a 2D imaginary matrix from a one-dimensional packed array.
-		/// </summary>
-		/// <param name="Name">Array name</param>
-		/// <param name="Real">One-dimensional array of float for <i>real</i> values, packed by columns</param>
-		/// <param name="Imag">One-dimensional array of float for <i>imaginary</i> values, packed by columns</param>
-		/// <param name="M">Number of rows</param>
-		public MLSingle(string Name, float[] Real, float[] Imag, int M)
+	    public MLSingle(string name, float[,] values) : this(name, Helpers.Array2DTo1D<float>(values), values.GetLength(0)) { }
+
+	    public MLSingle(string name, double[,] values) : this(name, Helpers.Convert(values), values.GetLength(0)) { }
+
+        /// <summary>
+        /// <a href="http://math.nist.gov/javanumerics/jama/">Jama</a> [math.nist.gov] style:
+        /// construct a 2D imaginary matrix from a one-dimensional packed array.
+        /// </summary>
+        /// <param name="Name">Array name</param>
+        /// <param name="Real">One-dimensional array of float for <i>real</i> values, packed by columns</param>
+        /// <param name="Imag">One-dimensional array of float for <i>imaginary</i> values, packed by columns</param>
+        /// <param name="M">Number of rows</param>
+        public MLSingle(string Name, float[] Real, float[] Imag, int M)
 			: base(Name, MLArray.mxSINGLE_CLASS, Real, Imag, M) { }
-
-
-		/// <summary>
-		/// <a href="http://math.nist.gov/javanumerics/jama/">Jama</a> [math.nist.gov] style:
-		/// construct a 2D imaginary matrix from a one-dimensional packed array.
-		/// </summary>
-		/// <param name="Name">Array name</param>
-		/// <param name="Real">array of arrays of float for <i>real</i> values</param>
-		/// <param name="Imag">array of arrays of float for <i>imaginary</i> values</param>
-		public MLSingle(string Name, float[][] Real, float[][] Imag)
+            
+        /// <summary>
+        /// <a href="http://math.nist.gov/javanumerics/jama/">Jama</a> [math.nist.gov] style:
+        /// construct a 2D imaginary matrix from a one-dimensional packed array.
+        /// </summary>
+        /// <param name="Name">Array name</param>
+        /// <param name="Real">array of arrays of float for <i>real</i> values</param>
+        /// <param name="Imag">array of arrays of float for <i>imaginary</i> values</param>
+        public MLSingle(string Name, float[][] Real, float[][] Imag)
 			: this(Name, Helpers.Array2DTo1D<float>(Real), Helpers.Array2DTo1D<float>(Imag), Real.Length) { }
 
 		#endregion
