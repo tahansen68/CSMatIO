@@ -1,9 +1,10 @@
-using System;
-using csmatio.common;
-
-namespace csmatio.io
+namespace DotNetDoctor.csmatio.io
 {
-	/// <summary>
+    using System;
+
+    using DotNetDoctor.csmatio.common;
+
+    /// <summary>
 	/// Used to create a MAT-file style tag
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>
@@ -25,8 +26,8 @@ namespace csmatio.io
 		/// <param name="Size">The size of the tag</param>
 		public MatTag( int Type, int Size )
 		{
-			_type = Type;
-			_size = Size;
+			this._type = Type;
+			this._size = Size;
 		}
 
 		/// <summary>
@@ -42,12 +43,12 @@ namespace csmatio.io
 			if( !compressed )
 			{
 				int b;
-				padding = ( b = ( ((size/SizeOf())%(8/SizeOf()))*SizeOf() ) ) != 0 ? 8-b : 0;
+				padding = ( b = ( ((size/this.SizeOf())%(8/this.SizeOf()))*this.SizeOf() ) ) != 0 ? 8-b : 0;
 			}
 			else
 			{
 				int b;
-				padding = ( b = ( ((size/SizeOf())%(4/SizeOf()))*SizeOf() ) ) != 0 ? 4-b : 0;
+				padding = ( b = ( ((size/this.SizeOf())%(4/this.SizeOf()))*this.SizeOf() ) ) != 0 ? 4-b : 0;
 			}
 			return padding;
 		}
@@ -58,7 +59,7 @@ namespace csmatio.io
 		public override string ToString()
 		{
 			string s;
-			s = "[tag: " + MatDataTypes.TypeToString(_type) + " size: " + _size + "]";
+			s = "[tag: " + MatDataTypes.TypeToString(this._type) + " size: " + this._size + "]";
 			return s;
 		}
 
@@ -68,7 +69,7 @@ namespace csmatio.io
 		/// <returns>The number of bytes for single data</returns>
 		public int SizeOf()
 		{
-			return MatDataTypes.SizeOf( _type );
+			return MatDataTypes.SizeOf( this._type );
 		}
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace csmatio.io
         /// </summary>
         public int Type
         {
-            get { return _type; }
+            get { return this._type; }
         }
 
         /// <summary>
@@ -84,7 +85,7 @@ namespace csmatio.io
         /// </summary>
         public int Size
         {
-            get { return _size; }
+            get { return this._size; }
         }
 
 	}

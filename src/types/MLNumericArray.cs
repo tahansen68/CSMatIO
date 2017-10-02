@@ -1,12 +1,11 @@
-using System;
-using System.Collections;
-using csmatio.types;
-using csmatio.common;
-using System.Runtime.InteropServices;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+    using System.Runtime.InteropServices;
+
+    using DotNetDoctor.csmatio.common;
+
+    /// <summary>
 	/// Abstract class for numeric arrays.
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>
@@ -28,10 +27,10 @@ namespace csmatio.types
 		protected MLNumericArray(string Name, int[] Dims, int Type, int Attributes)
 			: base(Name, Dims, Type, Attributes)
 		{
-			_real = new ByteBuffer(Size * GetBytesAllocated);
-			if (IsComplex)
-				_imaginary = new ByteBuffer(Size * GetBytesAllocated);
-			_bytes = new byte[GetBytesAllocated];
+			this._real = new ByteBuffer(this.Size * this.GetBytesAllocated);
+			if (this.IsComplex)
+				this._imaginary = new ByteBuffer(this.Size * this.GetBytesAllocated);
+			this._bytes = new byte[this.GetBytesAllocated];
 		}
 
 		/// <summary>
@@ -47,7 +46,7 @@ namespace csmatio.types
 		{
 			// Fill in the array
 			for (int i = 0; i < Vals.Length; i++)
-				Set(Vals[i], i);
+				this.Set(Vals[i], i);
 		}
 
 		/// <summary>
@@ -71,8 +70,8 @@ namespace csmatio.types
 			// Fill in the imaginary array
 			for (int i = 0; i < ImagVals.Length; i++)
 			{
-				SetReal(RealVals[i], i);
-				SetImaginary(ImagVals[i], i);
+				this.SetReal(RealVals[i], i);
+				this.SetImaginary(ImagVals[i], i);
 			}
 		}
 
@@ -96,7 +95,7 @@ namespace csmatio.types
 		/// <returns>Array Element</returns>
 		public virtual T GetReal(int M, int N)
 		{
-			return GetReal(GetIndex(M, N));
+			return this.GetReal(this.GetIndex(M, N));
 		}
 
 		/// <summary>
@@ -105,7 +104,7 @@ namespace csmatio.types
 		/// <returns>The real buffer</returns>
 		public ByteBuffer GetReal()
 		{
-			return _real;
+			return this._real;
 		}
 
 		/// <summary>
@@ -115,7 +114,7 @@ namespace csmatio.types
 		/// <returns>Array Element.</returns>
 		public virtual T GetReal(int Index)
 		{
-			return _Get(_real, Index);
+			return this._Get(this._real, Index);
 		}
 
 		/// <summary>
@@ -126,7 +125,7 @@ namespace csmatio.types
 		/// <param name="N">The column index.</param>
 		public virtual void SetReal(T Val, int M, int N)
 		{
-			SetReal(Val, GetIndex(M, N));
+			this.SetReal(Val, this.GetIndex(M, N));
 		}
 
 		/// <summary>
@@ -136,7 +135,7 @@ namespace csmatio.types
 		/// <param name="Index">Column-packed vector index.</param>
 		public virtual void SetReal(T Val, int Index)
 		{
-			_Set(_real, Val, Index);
+			this._Set(this._real, Val, Index);
 		}
 
 		///// <summary>
@@ -161,8 +160,8 @@ namespace csmatio.types
 		/// <param name="N">Column Index.</param>
 		public virtual void SetImaginary(T Val, int M, int N)
 		{
-			if (IsComplex)
-				SetImaginary(Val, GetIndex(M, N));
+			if (this.IsComplex)
+				this.SetImaginary(Val, this.GetIndex(M, N));
 		}
 
 		/// <summary>
@@ -172,8 +171,8 @@ namespace csmatio.types
 		/// <param name="Index">Column-packed vector index.</param>
 		public virtual void SetImaginary(T Val, int Index)
 		{
-			if (IsComplex)
-				_Set(_imaginary, Val, Index);
+			if (this.IsComplex)
+				this._Set(this._imaginary, Val, Index);
 		}
 
 		/// <summary>
@@ -184,7 +183,7 @@ namespace csmatio.types
 		/// <returns>Array element</returns>
 		public virtual T GetImaginary(int M, int N)
 		{
-			return GetImaginary(GetIndex(M, N));
+			return this.GetImaginary(this.GetIndex(M, N));
 		}
 
 		/// <summary>
@@ -194,7 +193,7 @@ namespace csmatio.types
 		/// <returns>Array Element</returns>
 		public virtual T GetImaginary(int Index)
 		{
-			return _Get(_imaginary, Index);
+			return this._Get(this._imaginary, Index);
 		}
 
 		/// <summary>
@@ -203,8 +202,8 @@ namespace csmatio.types
 		/// <returns>The real buffer</returns>
 		public ByteBuffer GetImaginary()
 		{
-			if (IsComplex)
-				return _imaginary;
+			if (this.IsComplex)
+				return this._imaginary;
 			else
 				return null;
 		}
@@ -217,9 +216,9 @@ namespace csmatio.types
 		/// <param name="N">Column index</param>
 		public void Set(T Val, int M, int N)
 		{
-			if (IsComplex)
+			if (this.IsComplex)
 				throw new MethodAccessException("Cannot use this method for Complex matrices");
-			SetReal(Val, M, N);
+			this.SetReal(Val, M, N);
 		}
 
 		/// <summary>
@@ -229,9 +228,9 @@ namespace csmatio.types
 		/// <param name="Index">Column-packed vector index</param>
 		public void Set(T Val, int Index)
 		{
-			if (IsComplex)
+			if (this.IsComplex)
 				throw new MethodAccessException("Cannot use this method for Complex matrices");
-			SetReal(Val, Index);
+			this.SetReal(Val, Index);
 		}
 		/// <summary>
 		/// Does the same as <c>GetReal</c>.
@@ -241,9 +240,9 @@ namespace csmatio.types
 		/// <returns>An array element value.</returns>
 		public T Get(int M, int N)
 		{
-			if (IsComplex)
+			if (this.IsComplex)
 				throw new MethodAccessException("Cannot use this method for Complex matrices");
-			return GetReal(M, N);
+			return this.GetReal(M, N);
 		}
 
 		/// <summary>
@@ -253,9 +252,9 @@ namespace csmatio.types
 		/// <returns>An array element value.</returns>
 		public T Get(int Index)
 		{
-			if (IsComplex)
+			if (this.IsComplex)
 				throw new MethodAccessException("Cannot use this method for Complex matrices");
-			return GetReal(Index);
+			return this.GetReal(Index);
 		}
 
 		///// <summary>
@@ -271,7 +270,7 @@ namespace csmatio.types
 
 		private int _GetByteOffset(int Index)
 		{
-			return Index * GetBytesAllocated;
+			return Index * this.GetBytesAllocated;
 		}
 
 		/// <summary>
@@ -282,9 +281,9 @@ namespace csmatio.types
 		/// <returns>The object data.</returns>
 		protected virtual T _Get(ByteBuffer Buffer, int Index)
 		{
-			Buffer.Position(_GetByteOffset(Index));
-			Buffer.Get(ref _bytes, 0, _bytes.Length);
-			return (T)BuildFromBytes(_bytes);
+			Buffer.Position(this._GetByteOffset(Index));
+			Buffer.Get(ref this._bytes, 0, this._bytes.Length);
+			return (T)this.BuildFromBytes(this._bytes);
 		}
 
 		/// <summary>
@@ -295,8 +294,8 @@ namespace csmatio.types
 		/// <param name="Index">A column-packed index</param>
 		protected void _Set(ByteBuffer Buffer, T Val, int Index)
 		{
-			Buffer.Position(_GetByteOffset(Index));
-			Buffer.Put(GetByteArray(Val));
+			Buffer.Position(this._GetByteOffset(Index));
+			Buffer.Put(this.GetByteArray(Val));
 		}
 
 		/// <summary>
@@ -305,13 +304,13 @@ namespace csmatio.types
 		/// <returns>2D array.</returns>
 		public T[][] GetArray()
 		{
-			T[][] result = new T[M][];
-			for (int m = 0; m < M; m++)
+			T[][] result = new T[this.M][];
+			for (int m = 0; m < this.M; m++)
 			{
-				result[m] = new T[N];
-				for (int n = 0; n < N; n++)
+				result[m] = new T[this.N];
+				for (int n = 0; n < this.N; n++)
 				{
-					result[m][n] = GetReal(m, n);
+					result[m][n] = this.GetReal(m, n);
 				}
 			}
 
@@ -323,13 +322,13 @@ namespace csmatio.types
 		/// </summary>
 		public ByteBuffer ImaginaryByteBuffer
 		{
-			get { return _imaginary; }
+			get { return this._imaginary; }
 			set
 			{
-				if (!IsComplex)
+				if (!this.IsComplex)
 					throw new MethodAccessException("Array is not complex");
-				_imaginary.Rewind();
-				_imaginary.Put(value);
+				this._imaginary.Rewind();
+				this._imaginary.Put(value);
 			}
 		}
 
@@ -339,11 +338,11 @@ namespace csmatio.types
 		/// </summary>
 		public ByteBuffer RealByteBuffer
 		{
-			get { return _real; }
+			get { return this._real; }
 			set
 			{
-				_real.Rewind();
-				_real.Put(value);
+				this._real.Rewind();
+				this._real.Put(value);
 			}
 		}
 
@@ -355,22 +354,22 @@ namespace csmatio.types
 		public override string ContentToString()
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append(Name + " = \n");
+			sb.Append(this.Name + " = \n");
 
-			if (Size > 1000)
+			if (this.Size > 1000)
 			{
 				// sb.Append("Cannot display variables with more than 1000 elements.");
 				sb.Append(this.ToString());
 				return sb.ToString();
 			}
-			for (int m = 0; m < M; m++)
+			for (int m = 0; m < this.M; m++)
 			{
 				sb.Append("\t");
-				for (int n = 0; n < N; n++)
+				for (int n = 0; n < this.N; n++)
 				{
-					sb.Append(GetReal(m, n));
-					if (IsComplex)
-						sb.Append("+" + GetImaginary(m, n));
+					sb.Append(this.GetReal(m, n));
+					if (this.IsComplex)
+						sb.Append("+" + this.GetImaginary(m, n));
 					sb.Append("\t");
 				}
 				sb.Append("\n");
@@ -387,11 +386,11 @@ namespace csmatio.types
 		{
 			if (o.GetType() == typeof(MLNumericArray<T>))
 			{
-				bool result = DirectByteBufferEquals(_real, ((MLNumericArray<T>)o).GetReal()) &&
-					Array.Equals(Dimensions, ((MLNumericArray<T>)o).Dimensions);
+				bool result = DirectByteBufferEquals(this._real, ((MLNumericArray<T>)o).GetReal()) &&
+					Array.Equals(this.Dimensions, ((MLNumericArray<T>)o).Dimensions);
 
-				if (IsComplex && result)
-					result &= DirectByteBufferEquals(_imaginary, ((MLNumericArray<T>)o).GetImaginary());
+				if (this.IsComplex && result)
+					result &= DirectByteBufferEquals(this._imaginary, ((MLNumericArray<T>)o).GetImaginary());
 				return result;
 			}
 			return base.Equals(o);
@@ -486,13 +485,13 @@ namespace csmatio.types
 		/// <returns>A numeric object</returns>
 		public virtual object BuildFromBytes(byte[] bytes)
 		{
-			if (bytes.Length != GetBytesAllocated)
+			if (bytes.Length != this.GetBytesAllocated)
 			{
 				throw new ArgumentException(
-					"To build from a byte array, I need an array of size: " + GetBytesAllocated);
+					"To build from a byte array, I need an array of size: " + this.GetBytesAllocated);
 			}
 
-			return BuildFromBytes2(bytes);
+			return this.BuildFromBytes2(bytes);
 		}
 
 		/// <summary>

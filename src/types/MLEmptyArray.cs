@@ -1,8 +1,6 @@
-using System;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    /// <summary>
 	/// An Empty array class
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>

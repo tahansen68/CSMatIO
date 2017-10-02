@@ -1,9 +1,9 @@
-using System;
-using System.Collections;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+    using System.Collections;
+
+    /// <summary>
 	/// This class represents an Matlab Char array (matrix)
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>
@@ -29,11 +29,11 @@ namespace csmatio.types
 		public MLCell( String Name, int[] Dims, int Type, int Attributes ) :
 			base( Name, Dims, Type, Attributes )
 		{
-			_cells = new ArrayList(M*N);
+			this._cells = new ArrayList(this.M*this.N);
 
-			for( int i = 0; i < M*N; i++ )
+			for( int i = 0; i < this.M*this.N; i++ )
 			{
-				_cells.Add( new MLEmptyArray() );
+				this._cells.Add( new MLEmptyArray() );
 			}
 		}
 
@@ -42,8 +42,8 @@ namespace csmatio.types
 		/// </summary>
 		public MLArray this[ int m, int n ]
 		{
-			set{ _cells[ GetIndex(m,n) ] = value; }
-			get{ return (MLArray)_cells[ GetIndex(m,n) ]; }
+			set{ this._cells[ this.GetIndex(m,n) ] = value; }
+			get{ return (MLArray)this._cells[ this.GetIndex(m,n) ]; }
 		}
 
 		/// <summary>
@@ -51,8 +51,8 @@ namespace csmatio.types
 		/// </summary>
 		public MLArray this[ int Index ]
 		{
-			set{ _cells[ Index ] = value; }
-			get{ return (MLArray)_cells[ Index ]; }
+			set{ this._cells[ Index ] = value; }
+			get{ return (MLArray)this._cells[ Index ]; }
 		}
 
 		/// <summary>
@@ -60,7 +60,7 @@ namespace csmatio.types
 		/// </summary>
 		public ArrayList Cells
 		{
-			get{ return _cells; }
+			get{ return this._cells; }
 		}
 
 		/// <summary>
@@ -70,12 +70,12 @@ namespace csmatio.types
 		public override string ContentToString()
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append( Name + " = \n" );
+			sb.Append( this.Name + " = \n" );
 
-			for( int m = 0; m < M; m++ )
+			for( int m = 0; m < this.M; m++ )
 			{
 				sb.Append("\t");
-				for( int n = 0; n < N; n++ )
+				for( int n = 0; n < this.N; n++ )
 				{
 					sb.Append( this[m,n].ContentToString() );
 					sb.Append("\t");

@@ -1,8 +1,8 @@
-using System;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+
+    /// <summary>
 	/// A public interface for storing and manipulating byte arrays
 	/// </summary>
 	public interface IByteStorageSupport

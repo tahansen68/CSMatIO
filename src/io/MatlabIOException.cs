@@ -1,8 +1,8 @@
-using System.IO;
-
-namespace csmatio.io
+namespace DotNetDoctor.csmatio.io
 {
-	/// <summary>
+    using System.IO;
+
+    /// <summary>
 	/// MAT-file reader/writer exception
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>

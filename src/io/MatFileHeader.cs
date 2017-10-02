@@ -1,8 +1,8 @@
-using System;
-
-namespace csmatio.io
+namespace DotNetDoctor.csmatio.io
 {
-	/// <summary>
+    using System;
+
+    /// <summary>
 	/// MAT-file header
 	/// </summary>
 	/// <remarks>
@@ -30,9 +30,9 @@ namespace csmatio.io
 		/// <param name="EndianIndicator">Byte array size of 2 indicating byte-swapping requirements</param>
 		public MatFileHeader( string Description, int Version, byte[] EndianIndicator )
 		{
-			_description = Description;
-			_version = Version;
-			_endianIndicator = EndianIndicator;
+			this._description = Description;
+			this._version = Version;
+			this._endianIndicator = EndianIndicator;
 		}
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace csmatio.io
 		/// </summary>
 		public string Description
 		{
-			get{ return _description; }
+			get{ return this._description; }
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace csmatio.io
 		/// </summary>
 		public byte[] EndianIndicator
 		{
-			get{ return _endianIndicator; }
+			get{ return this._endianIndicator; }
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace csmatio.io
 		/// </summary>
 		public int Version
 		{
-			get{ return _version; }
+			get{ return this._version; }
 		}
 
 		/// <summary>
@@ -80,8 +80,8 @@ namespace csmatio.io
 		/// </summary>
 		public override string ToString()
 		{
-			return "[descriptive text: " + _description + ", version: 0x" + _version.ToString("x04") + 
-				", endianIndicator: " + (char)_endianIndicator[0] + (char)_endianIndicator[1] + "]";
+			return "[descriptive text: " + this._description + ", version: 0x" + this._version.ToString("x04") + 
+				", endianIndicator: " + (char)this._endianIndicator[0] + (char)this._endianIndicator[1] + "]";
 		}
 	}
 }

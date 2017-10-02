@@ -1,11 +1,10 @@
-using System;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+
+    /// <summary>
 	/// This class represents Matlab's Structure object (structure array).
 	/// 
 	/// Note: An array of structures can contain only structures of the same type,
@@ -47,8 +46,8 @@ namespace csmatio.types
 		public MLStructure( string Name, int[] Dims, int Type, int Attributes ) :
 			base( Name, Dims, Type, Attributes )
 		{
-            _mlStructArray = new List<Dictionary<string, MLArray>>(Dims[0] * Dims[1]);
-            _keys = new List<string>();
+            this._mlStructArray = new List<Dictionary<string, MLArray>>(Dims[0] * Dims[1]);
+            this._keys = new List<string>();
 		}
 
 		/// <summary>
@@ -56,8 +55,8 @@ namespace csmatio.types
 		/// </summary>
 		public MLArray this[ string Name ]
 		{
-			set{ this[Name, _currentIndex ] = value; }
-			get{ return this[Name, _currentIndex]; }
+			set{ this[Name, this._currentIndex ] = value; }
+			get{ return this[Name, this._currentIndex]; }
 		}
 
 		/// <summary>
@@ -66,8 +65,8 @@ namespace csmatio.types
 		/// </summary>
 		public MLArray this[ string Name, int M, int N ]
 		{
-			set{ this[Name, GetIndex( M, N ) ] = value; }
-			get{ return this[ Name, GetIndex( M, N ) ]; }
+			set{ this[Name, this.GetIndex( M, N ) ] = value; }
+			get{ return this[ Name, this.GetIndex( M, N ) ]; }
 		}
 
 		/// <summary>
@@ -78,21 +77,21 @@ namespace csmatio.types
 		{
 			set
 			{
-				if( !_keys.Contains( Name ) )
+				if( !this._keys.Contains( Name ) )
 				{
-					_keys.Add( Name );
+					this._keys.Add( Name );
 				}
-				_currentIndex = Index;
+				this._currentIndex = Index;
 
-				if( _mlStructArray.Count == 0 || _mlStructArray.Count <= Index )
+				if( this._mlStructArray.Count == 0 || this._mlStructArray.Count <= Index )
 				{
-					_mlStructArray.Insert( Index, new Dictionary<string,MLArray>() );
+					this._mlStructArray.Insert( Index, new Dictionary<string,MLArray>() );
 				}
-				_mlStructArray[Index].Add(Name,value);
+				this._mlStructArray[Index].Add(Name,value);
 			}
 			get
 			{
-				return _mlStructArray[Index][Name];
+				return this._mlStructArray[Index][Name];
 			}
 		}
 
@@ -104,7 +103,7 @@ namespace csmatio.types
 			get
 			{
 				int maxLen = 0;
-				foreach( string s in _keys )
+				foreach( string s in this._keys )
 				{
 					maxLen = s.Length > maxLen ? s.Length : maxLen;
 				}
@@ -120,11 +119,11 @@ namespace csmatio.types
 		{
 			MemoryStream memstrm = new MemoryStream();
 			BinaryWriter bw = new BinaryWriter(memstrm);
-			char[] buffer = new char[ MaxFieldLength ];
+			char[] buffer = new char[ this.MaxFieldLength ];
 
 			try
 			{
-				foreach( string s in _keys )
+				foreach( string s in this._keys )
 				{
 					for( int i = 0; i < buffer.Length; i++ ) buffer[i] = (char)0;
 					Array.Copy( s.ToCharArray(), 0, buffer, 0, s.Length );
@@ -149,7 +148,7 @@ namespace csmatio.types
 			{
 				List<MLArray> fields = new List<MLArray>();
 
-				foreach( Dictionary<string,MLArray> st in _mlStructArray )
+				foreach( Dictionary<string,MLArray> st in this._mlStructArray )
 					fields.AddRange( st.Values );
 
 				return fields;
@@ -164,11 +163,11 @@ namespace csmatio.types
 		public override string ContentToString()
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append( Name + " = \n" );
+			sb.Append( this.Name + " = \n" );
 
-			if( M*N == 1 )
+			if( this.M*this.N == 1 )
 			{
-				foreach( string key in _keys )
+				foreach( string key in this._keys )
 				{
 					sb.Append("\t" + key + " : " + this[key].ContentToString() + "\n" );
 				}
@@ -176,9 +175,9 @@ namespace csmatio.types
 			else
 			{
 				sb.Append("\n");
-				sb.Append( M + "x" + N );
+				sb.Append( this.M + "x" + this.N );
 				sb.Append(" struct array with fields: \n");
-				foreach( string key in _keys )
+				foreach( string key in this._keys )
 				{
 					sb.Append("\t" + key + "\n");
 				}

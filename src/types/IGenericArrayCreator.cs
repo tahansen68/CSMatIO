@@ -1,8 +1,6 @@
-using System;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    /// <summary>
 	/// Interface used to create a generic array GenericArrayCreator.
 	/// </summary>
     /// <typeparam name="T">Generic Type for the array.</typeparam>

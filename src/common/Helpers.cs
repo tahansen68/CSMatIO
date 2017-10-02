@@ -1,11 +1,8 @@
-namespace csmatio.common
+namespace DotNetDoctor.csmatio.common
 {
-	using System;
-	using System.Collections.Generic;
-	using System.IO;
-	using System.Text;
+    using System.IO;
 
-	/// <summary>
+    /// <summary>
 	/// common static helper methods
 	/// </summary>
 	public static class Helpers

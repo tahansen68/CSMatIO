@@ -1,9 +1,10 @@
-using System;
-using csmatio.common;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+
+    using DotNetDoctor.csmatio.common;
+
+    /// <summary>
 	/// This class represents an Int32 (int) array (matrix)
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>

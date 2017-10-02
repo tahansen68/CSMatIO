@@ -11,7 +11,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>csmatio</AssemblyName>
+    <AssemblyName>DotNetDoctor.csmatio</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -19,7 +19,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>csmatio</RootNamespace>
+    <RootNamespace>DotNetDoctor.csmatio</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -76,12 +76,14 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
+    <DocumentationFile>bin\Debug-v4.0\DotNetDoctor.csmatio.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineDebug>false</DefineDebug>
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
+    <DocumentationFile>bin\Release-v4.0\DotNetDoctor.csmatio.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 4.0|AnyCPU'">
     <DefineTrace>true</DefineTrace>
@@ -89,7 +91,7 @@
     <DefineConstants>NET40</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Release\net40\csmatio.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\net40\DotNetDoctor.csmatio.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,7 +106,7 @@
     <DefineConstants>NET45</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Release\net45\CSMatIO.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\net45\DotNetDoctor.csmatio.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
     <PlatformTarget>AnyCPU</PlatformTarget>

@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>
 	/// This class represents a Matlab Sparse matrix
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>
@@ -31,8 +31,8 @@ namespace csmatio.types
 			/// <param name="n">The column index</param>
 			public IndexMN(int m, int n)
 			{
-				_m = m;
-				_n = n;
+				this._m = m;
+				this._n = n;
 			}
 
 			/// <summary>
@@ -40,8 +40,8 @@ namespace csmatio.types
 			/// </summary>
 			public int M
 			{
-				get { return _m; }
-				set { _m = value; }
+				get { return this._m; }
+				set { this._m = value; }
 			}
 
 			/// <summary>
@@ -49,8 +49,8 @@ namespace csmatio.types
 			/// </summary>
 			public int N
 			{
-				get { return _n; }
-				set { _n = value; }
+				get { return this._n; }
+				set { this._n = value; }
 			}
 
 			/// <summary>
@@ -59,8 +59,8 @@ namespace csmatio.types
 			/// <returns>A hashcode for this object</returns>
 			public override int GetHashCode()
 			{
-				long l = (long)_m;
-				l ^= (long)_n * 31L;
+				long l = (long)this._m;
+				l ^= (long)this._n * 31L;
 				return (int)l ^ (int)(l >> 32);
 			}
 
@@ -73,7 +73,7 @@ namespace csmatio.types
 			{
 				if (obj.GetType() == typeof(IndexMN))
 				{
-					return _m == ((IndexMN)obj).M && _n == ((IndexMN)obj).N;
+					return this._m == ((IndexMN)obj).M && this._n == ((IndexMN)obj).N;
 				}
 				return base.Equals(obj);
 			}
@@ -84,7 +84,7 @@ namespace csmatio.types
 			/// <returns>A <c>System.String</c></returns>
 			public override string ToString()
 			{
-				return "{m=" + _m + ", n=" + _n + "}";
+				return "{m=" + this._m + ", n=" + this._n + "}";
 			}
 		}
 
@@ -100,10 +100,10 @@ namespace csmatio.types
 		public MLSparse(string Name, int[] Dims, int Attributes, int nzMax)
 			: base(Name, Dims, MLArray.mxSPARSE_CLASS, Attributes)
 		{
-			_nzMax = nzMax;
-			_real = new Dictionary<IndexMN, double>();
-			_imaginary = new Dictionary<IndexMN, double>();
-			_indexSet = new List<IndexMN>();
+			this._nzMax = nzMax;
+			this._real = new Dictionary<IndexMN, double>();
+			this._imaginary = new Dictionary<IndexMN, double>();
+			this._indexSet = new List<IndexMN>();
 		}
 
 		#endregion
@@ -113,7 +113,7 @@ namespace csmatio.types
 		/// </summary>
 		public int MaxNZ
 		{
-			get { return _nzMax; }
+			get { return this._nzMax; }
 		}
 
 		/// <summary>
@@ -125,9 +125,9 @@ namespace csmatio.types
 		{
 			get
 			{
-				int[] ir = new int[_nzMax];
+				int[] ir = new int[this._nzMax];
 				int i = 0;
-				foreach (IndexMN index in _indexSet)
+				foreach (IndexMN index in this._indexSet)
 				{
 					ir[i++] = index.M;
 				}
@@ -150,12 +150,12 @@ namespace csmatio.types
 		{
 			get
 			{
-				int[] jc = new int[N + 1];
+				int[] jc = new int[this.N + 1];
 
 				// Create tmp array of nnz column indices
-				int[] tmp = new int[_nzMax];
+				int[] tmp = new int[this._nzMax];
 				int i = 0;
-				foreach (IndexMN index in _indexSet)
+				foreach (IndexMN index in this._indexSet)
 				{
 					tmp[i++] = index.N;
 				}
@@ -170,7 +170,7 @@ namespace csmatio.types
 				}
 
 				// last one is the nzMax
-				jc[jc.Length - 1] = _nzMax;
+				jc[jc.Length - 1] = this._nzMax;
 
 				return jc;
 			}
@@ -196,8 +196,8 @@ namespace csmatio.types
 		public override double GetReal(int M, int N)
 		{
 			IndexMN i = new IndexMN(M, N);
-			if (_real.ContainsKey(i))
-				return _real[i];
+			if (this._real.ContainsKey(i))
+				return this._real[i];
 			return (double)0;
 		}
 
@@ -223,9 +223,9 @@ namespace csmatio.types
 		public override void SetReal(double Val, int M, int N)
 		{
 			IndexMN i = new IndexMN(M, N);
-			if (!_indexSet.Contains(i))
-				_indexSet.Add(i);
-			_real.Add(i, Val);
+			if (!this._indexSet.Contains(i))
+				this._indexSet.Add(i);
+			this._real.Add(i, Val);
 		}
 
 		/// <summary>
@@ -249,11 +249,11 @@ namespace csmatio.types
 		/// <returns>Array element</returns>
 		public override double GetImaginary(int M, int N)
 		{
-			if (IsComplex)
+			if (this.IsComplex)
 			{
 				IndexMN i = new IndexMN(M, N);
-				if (_imaginary.ContainsKey(i))
-					return _imaginary[i];
+				if (this._imaginary.ContainsKey(i))
+					return this._imaginary[i];
 			}
 			return (double)0;
 		}
@@ -279,12 +279,12 @@ namespace csmatio.types
 		/// <param name="N">Column Index.</param>
 		public override void SetImaginary(double Val, int M, int N)
 		{
-			if (IsComplex)
+			if (this.IsComplex)
 			{
 				IndexMN i = new IndexMN(M, N);
-				if (!_indexSet.Contains(i))
-					_indexSet.Add(i);
-				_imaginary.Add(i, (double)Val);
+				if (!this._indexSet.Contains(i))
+					this._indexSet.Add(i);
+				this._imaginary.Add(i, (double)Val);
 			}
 		}
 
@@ -307,9 +307,9 @@ namespace csmatio.types
 		/// <returns><c>System.Double</c> array</returns>
 		public double[] ExportReal()
 		{
-			double[] ad = new double[_nzMax];
+			double[] ad = new double[this._nzMax];
 			int i = 0;
-			foreach (double d in _real.Values)
+			foreach (double d in this._real.Values)
 				ad[i++] = d;
 			return ad;
 		}
@@ -320,9 +320,9 @@ namespace csmatio.types
 		/// <returns><c>System.Double</c> array</returns>
 		public double[] ExportImaginary()
 		{
-			double[] ad = new double[_nzMax];
+			double[] ad = new double[this._nzMax];
 			int i = 0;
-			foreach (double d in _imaginary.Values)
+			foreach (double d in this._imaginary.Values)
 				ad[i++] = d;
 			return ad;
 		}
@@ -332,7 +332,7 @@ namespace csmatio.types
 		{
 			get
 			{
-				return (int)((uint)(_type & MLArray.mtFLAG_TYPE)
+				return (int)((uint)(this._type & MLArray.mtFLAG_TYPE)
 					| (uint)(base._attributes & 0xFFFFFF00));
 			}
 		}
@@ -346,14 +346,14 @@ namespace csmatio.types
 		public override string ContentToString()
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append(Name + " = \n");
+			sb.Append(this.Name + " = \n");
 
-			foreach (IndexMN i in _indexSet)
+			foreach (IndexMN i in this._indexSet)
 			{
 				sb.Append("\t(" + i.M + "," + i.N + ")");
-				sb.Append("\t" + GetReal(i.M, i.N));
-				if (IsComplex)
-					sb.Append("+" + GetImaginary(i.M, i.N));
+				sb.Append("\t" + this.GetReal(i.M, i.N));
+				if (this.IsComplex)
+					sb.Append("+" + this.GetImaginary(i.M, i.N));
 				sb.Append("\n");
 			}
 

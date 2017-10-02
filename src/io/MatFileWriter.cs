@@ -1,12 +1,3 @@
-using System;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-
-using csmatio.common;
-using csmatio.types;
-
 #if !NET20 && !NET40 && !NET45
 #error .NET-Version undefiniert
 #endif
@@ -16,12 +7,21 @@ using zlib = ComponentAce.Compression.Libs.ZLib;
 #endif
 
 #if NET40 || NET45
-using System.IO.Compression;
+
 #endif
 
-namespace csmatio.io
+namespace DotNetDoctor.csmatio.io
 {
-	/// <summary>
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Compression;
+
+    using DotNetDoctor.csmatio.common;
+    using DotNetDoctor.csmatio.types;
+
+    /// <summary>
 	/// MAT-file writer.
 	/// </summary>
 	/// <example> Usage:
@@ -80,7 +80,7 @@ namespace csmatio.io
 		public MatFileWriter(BinaryWriter stream, ICollection data, bool compress)
 		{
 			// Write header
-			WriteHeader(stream);
+			this.WriteHeader(stream);
 
 			foreach (MLArray matrix in data)
 			{
@@ -89,7 +89,7 @@ namespace csmatio.io
 					// Prepare buffer for MATRIX data
 					MemoryStream memstrm = new MemoryStream();
 					BinaryWriter bw = new BinaryWriter(memstrm);
-					WriteMatrix(bw, matrix); // Write MATRIX bytes into buffer
+					this.WriteMatrix(bw, matrix); // Write MATRIX bytes into buffer
 					memstrm.Position = 0; // Rewind the stream
 
 					// Compress data to save storage
@@ -150,7 +150,7 @@ namespace csmatio.io
 				else
 				{
 					// Write MATRIX bytes into buffer
-					WriteMatrix(stream, matrix);
+					this.WriteMatrix(stream, matrix);
 				}
 
 			}
@@ -207,13 +207,13 @@ namespace csmatio.io
 			BinaryWriter bw = new BinaryWriter(ms);
 
 			//flags
-			WriteFlags(bw, array);
+			this.WriteFlags(bw, array);
 
 			//dimensions
-			WriteDimensions(bw, array);
+			this.WriteDimensions(bw, array);
 
 			// array  name
-			WriteName(bw, array);
+			this.WriteName(bw, array);
 
 			switch (array.Type)
 			{
@@ -354,13 +354,13 @@ namespace csmatio.io
 
 					foreach (MLArray a in ((MLStructure)array).AllFields)
 					{
-						WriteMatrix(bw, a);
+						this.WriteMatrix(bw, a);
 					}
 					break;
 				case MLArray.mxCELL_CLASS:
 					foreach (MLArray a in ((MLCell)array).Cells)
 					{
-						WriteMatrix(bw, a);
+						this.WriteMatrix(bw, a);
 					}
 					break;
 				case MLArray.mxSPARSE_CLASS:
@@ -506,10 +506,10 @@ namespace csmatio.io
 			public OSArrayTag(int Type, ByteBuffer Data) :
 				base(Type, Data.Limit)
 			{
-				_data = Data;
-				_data.Rewind();
-				_compressed = (Data.Limit >= 1) && (Data.Limit <= 4);
-				_padding = GetPadding(Data.Limit, _compressed);
+				this._data = Data;
+				this._data.Rewind();
+				this._compressed = (Data.Limit >= 1) && (Data.Limit <= 4);
+				this._padding = GetPadding(Data.Limit, this._compressed);
 			}
 
 			/// <summary>
@@ -518,17 +518,17 @@ namespace csmatio.io
 			/// <param name="os"><c>BinaryWriter</c> output stream</param>
 			public void WriteTo(BinaryWriter os)
 			{
-				if (_compressed)
+				if (this._compressed)
 				{
 					// Write out a compressed header
 					uint tag = (uint)_size << 16 | (uint)_type;
 					os.Write(tag);
-					byte[] data = new byte[_data.Limit];
-					_data.Get(ref data, 0, data.Length);
+					byte[] data = new byte[this._data.Limit];
+					this._data.Get(ref data, 0, data.Length);
 					os.Write(data, 0, data.Length);
-					if (_padding > 0)
+					if (this._padding > 0)
 					{
-						os.Write(new byte[_padding]);
+						os.Write(new byte[this._padding]);
 					}
 				}
 				else
@@ -538,18 +538,18 @@ namespace csmatio.io
 					os.Write(_size);
 
 					int maxBuffSize = 1024;
-                    int writeBuffSize = _data.Remaining < maxBuffSize ? _data.Remaining : maxBuffSize;
+                    int writeBuffSize = this._data.Remaining < maxBuffSize ? this._data.Remaining : maxBuffSize;
 					byte[] tmp = new byte[writeBuffSize];
-                    while (_data.Remaining > 0)
+                    while (this._data.Remaining > 0)
 					{
-                        int length = _data.Remaining > tmp.Length ? tmp.Length : _data.Remaining;
-						_data.Get(ref tmp, 0, length);
+                        int length = this._data.Remaining > tmp.Length ? tmp.Length : this._data.Remaining;
+						this._data.Get(ref tmp, 0, length);
 						os.Write(tmp, 0, length);
 					}
 
-					if (_padding > 0)
+					if (this._padding > 0)
 					{
-						os.Write(new byte[_padding]);
+						os.Write(new byte[this._padding]);
 					}
 				}
 			}

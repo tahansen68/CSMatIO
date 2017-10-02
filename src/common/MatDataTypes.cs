@@ -1,8 +1,6 @@
-using System;
-
-namespace csmatio.common
+namespace DotNetDoctor.csmatio.common
 {
-	/// <summary>
+    /// <summary>
 	/// MAT-file data types
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>

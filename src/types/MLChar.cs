@@ -1,10 +1,8 @@
-using System;
-using csmatio.types;
-using csmatio.common;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+
+    /// <summary>
 	/// This class represents an Matlab Char array (matrix)
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>
@@ -20,7 +18,7 @@ namespace csmatio.types
 		public MLChar( string Name, string Val ) :
 			this( Name, new int[] { Val.Length == 0 ? 0 : 1, Val.Length } , MLArray.mxCHAR_CLASS, 0 )
 		{
-			Set( Val );
+			this.Set( Val );
 		}
 
 		/// <summary>
@@ -33,7 +31,7 @@ namespace csmatio.types
 		public MLChar( string Name, int[] Dims, int Type, int Attributes ) :
 			base( Name, Dims, Type, Attributes )
 		{
-			_chars = CreateArray( M, N );
+			this._chars = this.CreateArray( this.M, this.N );
 		}
 
 		#region GenericArrayCreator Members
@@ -60,10 +58,10 @@ namespace csmatio.types
 		/// greater than the length of the character array</exception>
 		public void SetChar( char Ch, int Index )
 		{
-			if( Index < 0 || Index >= _chars.Length )
+			if( Index < 0 || Index >= this._chars.Length )
 				throw new IndexOutOfRangeException("The index value of '" + Index + "' is out of range for the character array" );
 
-			_chars[Index] = Ch;
+			this._chars[Index] = Ch;
 		}
 
 		/// <summary>
@@ -73,9 +71,9 @@ namespace csmatio.types
 		public void Set( string Val )
 		{
 			char[] cha = Val.ToCharArray();
-			for( int i = 0; i < N && i < Val.Length; i++ )
+			for( int i = 0; i < this.N && i < Val.Length; i++ )
 			{
-				SetChar(cha[i],i);
+				this.SetChar(cha[i],i);
 			}
 		}
 
@@ -85,7 +83,7 @@ namespace csmatio.types
 		/// <returns></returns>
 		public char[] ExportChar()
 		{
-			return _chars;
+			return this._chars;
 		}
 
 		/// <summary>
@@ -96,7 +94,7 @@ namespace csmatio.types
 		/// <returns>The fetched character</returns>
 		public char GetChar( int m, int n )
 		{
-			return _chars[ GetIndex(m,n) ];
+			return this._chars[ this.GetIndex(m,n) ];
 		}
 
 		/// <summary>
@@ -108,7 +106,7 @@ namespace csmatio.types
 		{
 			if( o.GetType() == typeof( MLChar ) )
 			{
-				return Array.Equals( _chars, ((MLChar)o)._chars );
+				return Array.Equals( this._chars, ((MLChar)o)._chars );
 			}
 			return base.Equals( o );
 		}
@@ -131,9 +129,9 @@ namespace csmatio.types
 		{
 			System.Text.StringBuilder charBuff = new System.Text.StringBuilder();
 
-			for( int n = 0; n < N; n++ )
+			for( int n = 0; n < this.N; n++ )
 			{
-				charBuff.Append( GetChar( m, n ) );
+				charBuff.Append( this.GetChar( m, n ) );
 			}
 
 			return charBuff.ToString();
@@ -146,15 +144,15 @@ namespace csmatio.types
 		public override string ContentToString()
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append( Name + " = \n" );
+			sb.Append( this.Name + " = \n" );
 
-			for( int m = 0; m < M; m++ )
+			for( int m = 0; m < this.M; m++ )
 			{
 				sb.Append("\t");
 				System.Text.StringBuilder charBuff = new System.Text.StringBuilder();
 				charBuff.Append("'");
-				for( int n = 0; n < N; n++ )
-					charBuff.Append( GetChar(m,n) );
+				for( int n = 0; n < this.N; n++ )
+					charBuff.Append( this.GetChar(m,n) );
 				charBuff.Append("'");
 				sb.Append( charBuff );
 				sb.Append( "\n" );

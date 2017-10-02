@@ -1,46 +1,42 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-using csmatio.types;
-using csmatio.io;
-
-namespace CSMatIOTest
+namespace DotNetDoctor.CSMatIOTest
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+
+    using DotNetDoctor.csmatio.io;
+    using DotNetDoctor.csmatio.types;
+
     public partial class Main : Form
     {
 		private bool toggleCheck = false;
 
         public Main()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            DialogResult dRes = openFileDialog.ShowDialog();
+            DialogResult dRes = this.openFileDialog.ShowDialog();
             if (dRes == DialogResult.OK)
             {
-                string fileName = openFileDialog.FileName;
+                string fileName = this.openFileDialog.FileName;
 
-                txtOutput.Text = txtOutput.Text + "Attempting to read the file '" + fileName + "'...";
+                this.txtOutput.Text = this.txtOutput.Text + "Attempting to read the file '" + fileName + "'...";
                 try
                 {
                     MatFileReader mfr = new MatFileReader(fileName);
-                    txtOutput.Text += "Done!\nMAT-file contains the following:\n";
-                    txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
+                    this.txtOutput.Text += "Done!\nMAT-file contains the following:\n";
+                    this.txtOutput.Text += mfr.MatFileHeader.ToString() + "\n";
                     foreach (MLArray mla in mfr.Data)
                     {
-                        txtOutput.Text = txtOutput.Text + mla.ContentToString() + "\n";
+                        this.txtOutput.Text = this.txtOutput.Text + mla.ContentToString() + "\n";
                     }
                 }
                 catch (System.IO.IOException)
                 {
-                    txtOutput.Text = txtOutput.Text + "Invalid MAT-file!\n";
+                    this.txtOutput.Text = this.txtOutput.Text + "Invalid MAT-file!\n";
                     MessageBox.Show("Invalid binary MAT-file! Please select a valid binary MAT-file.",
                         "Invalid MAT-file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -52,63 +48,63 @@ namespace CSMatIOTest
         {
             List<MLArray> mlList = new List<MLArray>();
             // Go through each of the options to add in the file
-            if (chkCell.Checked)
+            if (this.chkCell.Checked)
             {
                 mlList.Add(CreateCellArray());
             }
-            if (chkStruct.Checked)
+            if (this.chkStruct.Checked)
             {
                 mlList.Add(CreateStructArray());
             }
-            if (chkChar.Checked)
+            if (this.chkChar.Checked)
             {
                 mlList.Add(CreateCharArray());
             }
-            if (chkSparse.Checked)
+            if (this.chkSparse.Checked)
             {
                 mlList.Add(CreateSparseArray());
             }
-            if (chkDouble.Checked)
+            if (this.chkDouble.Checked)
             {
                 mlList.Add(CreateDoubleArray());
             }
-            if (chkSingle.Checked)
+            if (this.chkSingle.Checked)
             {
                 mlList.Add(CreateSingleArray());
             }
-            if (chkInt8.Checked)
+            if (this.chkInt8.Checked)
             {
                 mlList.Add(CreateInt8Array());
             }
-            if (chkUInt8.Checked)
+            if (this.chkUInt8.Checked)
             {
                 mlList.Add(CreateUInt8Array());
             }
-            if (chkInt16.Checked)
+            if (this.chkInt16.Checked)
             {
                 mlList.Add(CreateInt16Array());
             }
-            if (chkUInt16.Checked)
+            if (this.chkUInt16.Checked)
             {
                 mlList.Add(CreateUInt16Array());
             }
-            if (chkInt32.Checked)
+            if (this.chkInt32.Checked)
             {
                 mlList.Add(CreateInt32Array());
             }
-            if (chkUInt32.Checked)
+            if (this.chkUInt32.Checked)
             {
                 mlList.Add(CreateUIn32Array());
             }
-            if (chkInt64.Checked)
+            if (this.chkInt64.Checked)
             {
                 mlList.Add(CreateInt64Array());
             }
-            if (chkUInt64.Checked)
+            if (this.chkUInt64.Checked)
             {
                 mlList.Add(CreateUInt64Array());
             }
-            if (chkImagMatrix.Checked)
+            if (this.chkImagMatrix.Checked)
             {
                 mlList.Add(CreateImaginaryArray());
             }
@@ -122,48 +118,48 @@ namespace CSMatIOTest
             }
 
             // Get a filename name to write the file out to
-            saveFileDialog.ShowDialog();
-            string filename = saveFileDialog.FileName;
+            this.saveFileDialog.ShowDialog();
+            string filename = this.saveFileDialog.FileName;
 
-            txtOutput.Text += "Creating the MAT-file '" + filename + "'...";
+            this.txtOutput.Text += "Creating the MAT-file '" + filename + "'...";
 
             try
             {
-                MatFileWriter mfw = new MatFileWriter(filename, mlList, chkCompress.Checked);
+                MatFileWriter mfw = new MatFileWriter(filename, mlList, this.chkCompress.Checked);
             }
             catch (Exception err)
             {
                 MessageBox.Show("There was an error when creating the MAT-file: \n" + err.ToString(),
                     "MAT-File Creation Error!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtOutput.Text += "Failed!\n";
+                this.txtOutput.Text += "Failed!\n";
                 return;
             }
 
-            txtOutput.Text += "Done!\nMAT-File created with the following data: \n";
+            this.txtOutput.Text += "Done!\nMAT-File created with the following data: \n";
             foreach (MLArray mla in mlList)
-                txtOutput.Text += mla.ContentToString() + "\n";    
+                this.txtOutput.Text += mla.ContentToString() + "\n";    
         }
 
 		private void btnCheckEmAll_Click(object sender, EventArgs e)
 		{
-			toggleCheck = !toggleCheck;
+			this.toggleCheck = !this.toggleCheck;
 
-			chkCell.Checked =
-			chkStruct.Checked =
-			chkChar.Checked =
-			chkSparse.Checked =
-			chkDouble.Checked =
-			chkSingle.Checked =
-			chkInt8.Checked =
-			chkUInt8.Checked =
-			chkInt16.Checked =
-			chkUInt16.Checked =
-			chkInt32.Checked =
-			chkUInt32.Checked =
-			chkInt64.Checked =
-			chkUInt64.Checked =
-			chkImagMatrix.Checked =
-			toggleCheck;
+			this.chkCell.Checked =
+			this.chkStruct.Checked =
+			this.chkChar.Checked =
+			this.chkSparse.Checked =
+			this.chkDouble.Checked =
+			this.chkSingle.Checked =
+			this.chkInt8.Checked =
+			this.chkUInt8.Checked =
+			this.chkInt16.Checked =
+			this.chkUInt16.Checked =
+			this.chkInt32.Checked =
+			this.chkUInt32.Checked =
+			this.chkInt64.Checked =
+			this.chkUInt64.Checked =
+			this.chkImagMatrix.Checked =
+			this.toggleCheck;
 		}
 
         private static MLArray CreateCellArray()

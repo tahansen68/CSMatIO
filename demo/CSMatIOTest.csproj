@@ -8,8 +8,8 @@
     <ProjectGuid>{C5C58FCB-2DDA-4472-ACED-0C97FE09F7C1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CSMatIOTest</RootNamespace>
-    <AssemblyName>CSMatIOTest</AssemblyName>
+    <RootNamespace>DotNetDoctor.CSMatIOTest</RootNamespace>
+    <AssemblyName>DotNetDoctor.CSMatIOTest</AssemblyName>
     <TargetFrameworkVersion Condition=" '$(TargetFrameworkVersion)' == '' ">v4.0</TargetFrameworkVersion>
     <OutputPath>bin\$(Configuration)-$(TargetFrameworkVersion)\</OutputPath>
     <BaseIntermediateOutputPath>obj-$(TargetFrameworkVersion)\</BaseIntermediateOutputPath>

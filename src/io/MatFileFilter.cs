@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
-
-namespace csmatio.io
+namespace DotNetDoctor.csmatio.io
 {
-	/// <summary>
+    using System.Collections;
+
+    /// <summary>
 	/// File filter.
 	/// </summary>
 	/// <remarks>
@@ -34,7 +33,7 @@ namespace csmatio.io
 		/// </summary>
 		public MatFileFilter()
 		{
-			_filter = new ArrayList();
+			this._filter = new ArrayList();
 		}
 
 		/// <summary>
@@ -46,7 +45,7 @@ namespace csmatio.io
 		{
 			foreach( string name in Names )
 			{
-				AddArrayName( name );
+				this.AddArrayName( name );
 			}
 		}
 
@@ -57,7 +56,7 @@ namespace csmatio.io
 		/// <param name="Name">Array name (needle)</param>
 		public void AddArrayName( string Name )
 		{
-			_filter.Add( Name );
+			this._filter.Add( Name );
 		}
 
 		/// <summary>
@@ -67,9 +66,9 @@ namespace csmatio.io
 		/// <returns><c>True</c> if array (matrix) of this name should be processed.</returns>
 		public bool Matches( string Name )
 		{
-			if( _filter.Count == 0 )
+			if( this._filter.Count == 0 )
 				return true;
-			return _filter.Contains( Name );
+			return this._filter.Contains( Name );
 		}
 	}
 }

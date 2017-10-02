@@ -1,9 +1,10 @@
-using System;
-using csmatio.common;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+
+    using DotNetDoctor.csmatio.common;
+
+    /// <summary>
 	/// This class represents an UInt64 (ulong) array (matrix)
 	/// </summary>
 	/// <remarks>

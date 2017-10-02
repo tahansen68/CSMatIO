@@ -1,9 +1,8 @@
-using System;
-using csmatio.common;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using DotNetDoctor.csmatio.common;
+
+    /// <summary>
 	/// This class represents an Int8 array (matrix)
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>

@@ -1,8 +1,8 @@
-using System;
-
-namespace csmatio.types
+namespace DotNetDoctor.csmatio.types
 {
-	/// <summary>
+    using System;
+
+    /// <summary>
 	/// A base class that represents a generic Matlab Array object
 	/// </summary>
 	/// <author>David Zier (david.zier@gmail.com)</author>
@@ -82,25 +82,25 @@ namespace csmatio.types
 		/// <param name="attributes">Attribute parameters for the array.</param>
 		public MLArray( string name, int[] dims, int type, int attributes )
 		{
-			_dims = new int[dims.Length];
-			Array.Copy( dims, 0, _dims, 0, dims.Length );
+			this._dims = new int[dims.Length];
+			Array.Copy( dims, 0, this._dims, 0, dims.Length );
 
 			if( name != null && !name.Equals("") )
-				_name = name;
+				this._name = name;
 			else
-				_name = "@"; // Default name
+				this._name = "@"; // Default name
 
-			_type = type;
-			_attributes = attributes;
+			this._type = type;
+			this._attributes = attributes;
 		}
 
 		/// <summary>Gets the name of the array.</summary>
-		public string Name{ get{ return _name; } }
+		public string Name{ get{ return this._name; } }
 
 		/// <summary>Gets the flags for this array.</summary>
 		public virtual int Flags
         { 
-            get{ return (int)((uint)(_type & mtFLAG_TYPE) | (uint)(_attributes & 0xFFFFFF00)); } 
+            get{ return (int)((uint)(this._type & mtFLAG_TYPE) | (uint)(this._attributes & 0xFFFFFF00)); } 
         }
 
 		/// <summary>
@@ -109,9 +109,9 @@ namespace csmatio.types
 		/// <returns>A byte array.</returns>
 		public byte[] GetNameToByteArray()
 		{
-			byte[] bs = new byte[ _name.Length ];
-			for( int i = 0; i < _name.Length; i++ )
-				bs[i] = (byte)_name[i];
+			byte[] bs = new byte[ this._name.Length ];
+			for( int i = 0; i < this._name.Length; i++ )
+				bs[i] = (byte)this._name[i];
 			return bs;
 		}
 
@@ -123,17 +123,17 @@ namespace csmatio.types
 			get
 			{
 				int[] ai = null;
-				if( _dims != null )
+				if( this._dims != null )
 				{
-					ai = new int[_dims.Length];
-					Array.Copy( _dims, 0, ai, 0, _dims.Length );
+					ai = new int[this._dims.Length];
+					Array.Copy( this._dims, 0, ai, 0, this._dims.Length );
 				}
 				return ai;
 			}
 		}
 
 		/// <summary>Get the M dimension.</summary>
-		public int M{ get{ return( (_dims != null) ? _dims[0] : 0 ); } }
+		public int M{ get{ return( (this._dims != null) ? this._dims[0] : 0 ); } }
 
 		/// <summary>Get the N dimension.</summary>
 		public int N
@@ -141,16 +141,16 @@ namespace csmatio.types
 			get
 			{
 				int i = 0;
-				if( _dims != null )
+				if( this._dims != null )
 				{
-					if( _dims.Length > 2 )
+					if( this._dims.Length > 2 )
 					{
 						i = 1;
-						for( int j = 1; j < _dims.Length; j++ )
-							i *= _dims[j];
+						for( int j = 1; j < this._dims.Length; j++ )
+							i *= this._dims[j];
 					}
 					else
-						i = _dims[1];
+						i = this._dims[1];
 				}
 				return i;
 			} 
@@ -159,22 +159,22 @@ namespace csmatio.types
 		/// <summary>
 		/// Get the N dimensions or the size of the dimensions array
 		/// </summary>
-		public int NDimensions{ get{ return( (_dims != null) ? _dims.Length : 0 ); } }
+		public int NDimensions{ get{ return( (this._dims != null) ? this._dims.Length : 0 ); } }
 		
 		/// <summary>
 		/// Get the size of the array.
 		/// </summary>
-		public int Size{ get{ return M * N; } }
+		public int Size{ get{ return this.M * this.N; } }
 
 		/// <summary>
 		/// Get the Matlab Array Type for this array
 		/// </summary>
-		public int Type{ get{ return _type; } }
+		public int Type{ get{ return this._type; } }
 
 		/// <summary>
 		/// Is the array empty?
 		/// </summary>
-		public bool IsEmpty{ get{ return N == 0; } }
+		public bool IsEmpty{ get{ return this.N == 0; } }
 
 		/// <summary>
 		/// Converts a Matlab Array Class type into a string representation.
@@ -227,64 +227,64 @@ namespace csmatio.types
 		}
 
 		/// <summary>Is Array a Cell Class Type?</summary>
-		public bool IsCell{ get{ return _type == mxCELL_CLASS; } }
+		public bool IsCell{ get{ return this._type == mxCELL_CLASS; } }
 
 		/// <summary>Is Array a Char Class Type?</summary>
-		public bool IsChar{ get{ return _type == mxCHAR_CLASS; } }
+		public bool IsChar{ get{ return this._type == mxCHAR_CLASS; } }
 
 		/// <summary>Is Array a Complex Number?</summary>
-		public bool IsComplex{ get{ return (_attributes & mtFLAG_COMPLEX) != 0; } }
+		public bool IsComplex{ get{ return (this._attributes & mtFLAG_COMPLEX) != 0; } }
 		
 		/// <summary>Is Array a Sparse Array Class Type?</summary>
-		public bool IsSparse{ get{ return _type == mxSPARSE_CLASS; } }
+		public bool IsSparse{ get{ return this._type == mxSPARSE_CLASS; } }
 
 		/// <summary>Is Array a Struct Type?</summary>
-		public bool IsStruct{ get{ return _type == mxSTRUCT_CLASS; } }
+		public bool IsStruct{ get{ return this._type == mxSTRUCT_CLASS; } }
 
 		/// <summary>Is Array a Double Precision Type?</summary>
-		public bool IsDouble{ get{ return _type == mxDOUBLE_CLASS; } }
+		public bool IsDouble{ get{ return this._type == mxDOUBLE_CLASS; } }
 
 		/// <summary>Is Array a Single Precision Type?</summary>
-		public bool IsSingle{ get{ return _type == mxSINGLE_CLASS; } }
+		public bool IsSingle{ get{ return this._type == mxSINGLE_CLASS; } }
 
 		/// <summary>Is Array a 8-bit Signed Integer Type?</summary>
-		public bool IsInt8{ get{ return _type == mxINT8_CLASS; } }
+		public bool IsInt8{ get{ return this._type == mxINT8_CLASS; } }
 
 		/// <summary>Is Array a 16-bit Signed Integer Type?</summary>
-		public bool IsInt16{ get{ return _type == mxINT16_CLASS; } }
+		public bool IsInt16{ get{ return this._type == mxINT16_CLASS; } }
 
 		/// <summary>Is Array a 32-bit Signed Integer Type?</summary>
-		public bool IsInt32{ get{ return _type == mxINT32_CLASS; } }
+		public bool IsInt32{ get{ return this._type == mxINT32_CLASS; } }
 
 		/// <summary>Is Array a 8-bit Unsigned Integer Type?</summary>
-		public bool IsUInt8{ get{ return _type == mxUINT8_CLASS; } }
+		public bool IsUInt8{ get{ return this._type == mxUINT8_CLASS; } }
 
 		/// <summary>Is Array a 16-bit Unsigned Integer Type?</summary>
-		public bool IsUInt16{ get{ return _type == mxUINT16_CLASS; } }
+		public bool IsUInt16{ get{ return this._type == mxUINT16_CLASS; } }
 
 		/// <summary>Is Array a 32-bit Unsigned Integer Type?</summary>
-		public bool IsUInt32{ get{ return _type == mxUINT32_CLASS; } }
+		public bool IsUInt32{ get{ return this._type == mxUINT32_CLASS; } }
 
 		/// <summary>Is Array a 64-bit Signed Integer Type?</summary>
-		public bool IsInt64{ get{ return _type == mxINT64_CLASS; } }
+		public bool IsInt64{ get{ return this._type == mxINT64_CLASS; } }
 
 		/// <summary>Is Array a 64-bit Unsigned Integer Type?</summary>
-		public bool IsUInt64{ get{ return _type == mxUINT64_CLASS; } }
+		public bool IsUInt64{ get{ return this._type == mxUINT64_CLASS; } }
 
 		/// <summary>Is Array an Object Type?</summary>
-		public bool IsObject{ get{ return _type == mxOBJECT_CLASS; } }
+		public bool IsObject{ get{ return this._type == mxOBJECT_CLASS; } }
 
 		/// <summary>Is Array an Opaque Type?</summary>
-		public bool IsOpaque{ get{ return _type == mxOPAQUE_CLASS; } }
+		public bool IsOpaque{ get{ return this._type == mxOPAQUE_CLASS; } }
 
 		/// <summary>Is Array a logical value?</summary>
-		public bool IsLogical{ get{ return (_attributes & mtFLAG_LOGICAL) != 0; } }
+		public bool IsLogical{ get{ return (this._attributes & mtFLAG_LOGICAL) != 0; } }
 
 		/// <summary>Is Array a Function Object?</summary>
-		public bool IsFunctionObject{ get{ return _type == mxFUNCTION_CLASS; } }
+		public bool IsFunctionObject{ get{ return this._type == mxFUNCTION_CLASS; } }
 
 		/// <summary>Is Array an Unknown Type?</summary>
-		public bool IsUnknown{ get{ return _type == mxUNKNOWN_CLASS; } }
+		public bool IsUnknown{ get{ return this._type == mxUNKNOWN_CLASS; } }
 
 		/// <summary>
 		/// Get the index into the byte array.
@@ -294,7 +294,7 @@ namespace csmatio.types
 		/// <returns>An index into the byte array.</returns>
 		protected int GetIndex( int m, int n )
 		{
-			return m+n*M;
+			return m+n*this.M;
 		}
 
 		/// <summary>
@@ -304,28 +304,28 @@ namespace csmatio.types
 		public override string ToString()
 		{
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			if( _dims != null )
+			if( this._dims != null )
 			{
 				sb.Append("[");
-				if( _dims.Length > 3 )
+				if( this._dims.Length > 3 )
 				{
-					sb.Append(_dims.Length + "D");
+					sb.Append(this._dims.Length + "D");
 				}
 				else
 				{
-					sb.Append(_dims[0] + "x" + _dims[1]);
-					if( _dims.Length == 3)
-						sb.Append( "x" + _dims[2] );
+					sb.Append(this._dims[0] + "x" + this._dims[1]);
+					if( this._dims.Length == 3)
+						sb.Append( "x" + this._dims[2] );
 				}
-				sb.Append( "  " + TypeToString( _type ) + " array" );
-				if( IsSparse )
+				sb.Append( "  " + TypeToString( this._type ) + " array" );
+				if( this.IsSparse )
 				{
 					sb.Append(" (sparse");
-					if( IsComplex )
+					if( this.IsComplex )
 						sb.Append(" complex");
 					sb.Append(")");
 				}
-				else if( IsComplex )
+				else if( this.IsComplex )
 				{
 					sb.Append(" (complex)");
 				}
