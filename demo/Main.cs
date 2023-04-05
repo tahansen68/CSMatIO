@@ -182,12 +182,7 @@ namespace DotNetDoctor.CSMatIOTest
 
         private static MLArray CreateCharArray()
         {
-#if NET20
-            return new MLChar("AName", "Hello World v2.0!");
-#endif
-#if NET40
-			return new MLChar("AName", "Hello World v4.0!");
-#endif
+    			return new MLChar("AName", "Hello World!");
         }
 
         private static MLArray CreateSparseArray()

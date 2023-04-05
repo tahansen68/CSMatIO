@@ -1,15 +1,3 @@
-#if !NET20 && !NET40 && !NET45
-#error .NET-Version undefiniert
-#endif
-
-#if NET20
-using zlib = ComponentAce.Compression.Libs.ZLib;
-#endif
-
-#if NET40 || NET45
-
-#endif
-
 namespace DotNetDoctor.csmatio.io
 {
     using System.Collections.Generic;
@@ -187,28 +175,7 @@ namespace DotNetDoctor.csmatio.io
 
 			try
 			{
-#if NET20
-				MemoryStream inflatedStream = new MemoryStream(numOfBytes);
-
-				// copy all the compressed bytes to a new stream.
-				byte[] compressedBytes = new byte[numOfBytes];
-				int numBytesRead = buf.Read(compressedBytes, 0, numOfBytes);
-				if (numBytesRead != numOfBytes)
-				{
-					throw new IOException("numBytesRead != numOfBytes");
-				}
-
-				// now use zlib on the compressedBytes
-				MemoryStream compressedStream = new MemoryStream(compressedBytes);
-				zlib.ZInputStream zis = new zlib.ZInputStream(compressedStream);
-				Helpers.CopyStream(zis, inflatedStream);
-				zis.Close();
-
-				inflatedStream.Position = 0;
-				return inflatedStream;
-#endif
-#if NET40 || NET45
-                // skip CRC (at end) and zip format (0x789C at begin)
+        // skip CRC (at end) and zip format (0x789C at begin)
 				buf.Position += 2;
 				numOfBytes -= 6;
 
@@ -242,7 +209,6 @@ namespace DotNetDoctor.csmatio.io
 				}
 				decompressedStream.Position = 0; 
 				return decompressedStream;
-#endif
 			}
 			catch (IOException e)
 			{
